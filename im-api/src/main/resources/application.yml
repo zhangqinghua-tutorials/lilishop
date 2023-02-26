@@ -158,7 +158,7 @@ mybatis-plus:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 日志
-logging:
+logging1:
   config: classpath:logback-spring.xml
   # 输出级别
   level:

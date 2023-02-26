@@ -24,14 +24,15 @@ spring:
   boot:
     admin:
       client:
-        url: http://192.168.0.116:8000
+        url: http://127.0.0.1:8000
   cache:
     type: redis
   # Redis
   redis:
-    host: 127.0.0.1
+    host: 47.119.139.41
     port: 6379
-    password: lilishop
+    password: easybyte-develop
+    datebase: 3
     lettuce:
       pool:
         # 连接池最大连接数（使用负值表示没有限制） 默认 8
@@ -60,9 +61,9 @@ spring:
       default-datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/lilishop?useUnicode=true&characterEncoding=utf-8&useSSL=false&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+        url: jdbc:mysql://47.119.139.41:33210/lilishop?useUnicode=true&characterEncoding=utf-8&useSSL=false&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
         username: root
-        password: lilishop
+        password: 123456
         maxActive: 50
         initialSize: 20
         maxWait: 60000
@@ -269,7 +270,7 @@ lili:
   data:
     elasticsearch:
       cluster-name: elasticsearch
-      cluster-nodes: 127.0.0.1:9200
+      cluster-nodes: 47.119.139.41:49120
       index:
         number-of-replicas: 0
         number-of-shards: 3
@@ -301,7 +302,7 @@ lili:
       after-sale-topic: lili_after_sale_topic
       after-sale-group: lili_after_sale_group
 rocketmq:
-  name-server: 127.0.0.1:9876
+  name-server: 47.119.139.41:8401
   isVIPChannel: false
   producer:
     group: lili_group
