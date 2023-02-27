@@ -11,6 +11,7 @@ ARG         APP_NAME
 
 # 3. 把应用包复制进容器（排除了lib的应用体积大概在1MB左右）复制本地的renren-fast.jar文件到容器/目录并改名app.jar easybyte-auth/target/easybyte-auth.jar -> /app.jar
 ADD         ${MODULE}/target/${APP_NAME}.jar /app.jar
+ADD         config/application.yml /config/application.yml
 
 # 4. 对外开放的端口，8070给Txlcn用，8987是consumer的websocket端口
 EXPOSE      80
