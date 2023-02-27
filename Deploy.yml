@@ -1,0 +1,77 @@
+# 服务配置
+kind: Service
+apiVersion: v1
+metadata:
+  # 应用名称：easybyte-auth
+  name: $MODULE_NAME
+  # 命名空间（这里区分不同的环境）：easybyte-dev、easybyte-test、easybyte-prod
+  namespace: $APP_NAME_SPACE
+  labels:
+    app: $MODULE_NAME
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      # pod 端口，容器外部端口，可以重复（每个pod都有一个独立的ip）
+      port: 80
+      # 容器内部端口，服务端口
+      targetPort: 80
+  selector:
+    app: $MODULE_NAME
+  sessionAffinity: None
+
+# 部署配置
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: $MODULE_NAME
+  namespace: $APP_NAME_SPACE
+  labels:
+    app: $MODULE_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $MODULE_NAME
+  template:
+    metadata:
+      labels:
+        app: $MODULE_NAME
+    spec:
+      containers:
+        - name: $MODULE_NAME
+          image: $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$APP_VERSION
+          command: [ "java",
+            # 设置 -XX:+UseContainerSupport，设置-XX:MaxRAMPercentage=75.0，这样为其他进程（debug、监控）留下足够的内存空间，又不会太浪费RAM。
+                     "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0",
+                     "-jar", "/app.jar",
+                     "--server.port=80"]
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          # 拉取镜像策略，当本地不存在时拉取。
+          imagePullPolicy: IfNotPresent
+          # 设置时区，Docker默认的是伦敦时区
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          #
+          # 就绪探针，判断是否能工作
+          # readinessProbe:
+          #   periodSeconds: 10             # 执行探测的频率。默认是10秒，最小1秒
+          #   initialDelaySeconds: 20       # 容器启动后等待多少秒执行第一次探测
+          #   httpGet:
+          #     scheme: HTTP
+          #     port: 80
+          #     path: /actuator/health
+      restartPolicy: Always               # 重启策略
+      terminationGracePeriodSeconds: 30   # 优雅停机毫秒
+
+  strategy: # 发布策略
+    type: RollingUpdate                   # 使用滚动发布策略
+    rollingUpdate:
+      maxSurge: 25%                       # 滚动更新过程中运行操作期望副本数的最大pod数，可以为绝对数值(eg：5)，但不能为0；也可以为百分数(eg：10%)。默认为25%。
+      maxUnavailable: 25%                 # 滚动更新过程中不可用的最大pod数，可以为绝对数值(eg：5)，但不能为0；也可以为百分数(eg：10%)。默认为25%。
