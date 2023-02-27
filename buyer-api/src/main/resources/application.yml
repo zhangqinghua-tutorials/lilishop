@@ -32,10 +32,10 @@ spring:
   application:
     name: buyer-api
   # 要在其中注册的Spring Boot Admin Server的URL。
-  boot:
-    admin:
-      client:
-        url: http://127.0.0.1:8000
+#  boot:
+#    admin:
+#      client:
+#        url: http://127.0.0.1:8000
   # 文件大小上传配置
   servlet:
     multipart:

@@ -25,10 +25,10 @@ spring:
   application:
     name: seller-api
   # 要在其中注册的Spring Boot Admin Server的URL。
-  boot:
-    admin:
-      client:
-        url: http://127.0.0.1:8000
+#  boot:
+#    admin:
+#      client:
+#        url: http://127.0.0.1:8000
   cache:
     type: redis
   # Redis
