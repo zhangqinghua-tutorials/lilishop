@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /
+    context-path: /api
 
   tomcat:
     uri-encoding: UTF-8
