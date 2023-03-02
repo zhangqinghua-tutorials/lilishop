@@ -97,7 +97,7 @@ public class EsGoodsSearchServiceImpl implements EsGoodsSearchService {
         NativeSearchQueryBuilder builder = createSearchQueryBuilder(goodsSearch, null);
         //分类
         AggregationBuilder categoryNameBuilder = AggregationBuilders.terms("categoryNameAgg").field("categoryNamePath.keyword");
-        builder.addAggregation(AggregationBuilders.terms("categoryAgg.keyword").field("categoryPath").subAggregation(categoryNameBuilder));
+        builder.addAggregation(AggregationBuilders.terms("categoryAgg").field("categoryPath.keyword").subAggregation(categoryNameBuilder));
 
         //品牌
         AggregationBuilder brandNameBuilder = AggregationBuilders.terms(ATTR_BRAND_NAME).field("brandName.keyword");
