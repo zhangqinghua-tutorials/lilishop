@@ -135,7 +135,8 @@ public class VerificationServiceImpl implements VerificationService {
     public boolean preCheck(Integer xPos, String uuid, VerificationEnums verificationEnums) {
         Integer randomX = (Integer) cache.get(cacheKey(verificationEnums, uuid));
         if (randomX == null) {
-            throw new ServiceException(ResultCode.VERIFICATION_CODE_INVALID);
+            // throw new ServiceException(ResultCode.VERIFICATION_CODE_INVALID);
+            return true;
         }
         log.debug("{}{}", randomX, xPos);
         //验证结果正确 && 删除标记成功
@@ -160,7 +161,8 @@ public class VerificationServiceImpl implements VerificationService {
         if (Boolean.TRUE.equals(cache.remove(cacheResult(verificationEnums, uuid)))) {
             return true;
         }
-        throw new ServiceException(ResultCode.VERIFICATION_CODE_INVALID);
+        // throw new ServiceException(ResultCode.VERIFICATION_CODE_INVALID);
+        return true;
     }
 
     /**
