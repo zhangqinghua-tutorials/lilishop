@@ -1,7 +1,11 @@
 FROM java:openjdk-8u111-jre
 
+# 2.接收从外边传来的参数
+ARG         MODULE
+ARG         APP_NAME
+
 # 将上一个容器的jar文件复制到此容器下面
-ADD manager-api/target/manager-api-4.3.jar /app/app.jar
+ADD ${MODULE}/target/${APP_NAME}.jar /app/app.jar
 
 # 调整时区
 # RUN rm -f /etc/localtime && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone

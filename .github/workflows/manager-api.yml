@@ -8,7 +8,7 @@ on: workflow_dispatch
 env:
   NAME: lilishop
   BRANCH: product                                      # 仓库分支
-
+  DOCKERHUB_IMAGE: zhangqinghua/lilishop
 # 步骤流程：
 jobs:
   release:
@@ -53,16 +53,7 @@ jobs:
           push: true
           tags: zhangqinghua/lilishop-manager:latest
           context: ./
-      # 7. 执行
-      # 启动服务
-      - name: Start Application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PRODUCT_SERVER_HOST }}
-          port: 22
-          username: ${{ secrets.PRODUCT_SERVER_USERNAME }}
-          password: ${{ secrets.PRODUCT_SERVER_PASSWORD }}
-          script: |
-            
-            
+          build-args:
+            MODULE=manager-api
+            APP_NAME=manager-api-4.3
             
