@@ -9,7 +9,7 @@ ADD ${MODULE}/target/${MODULE}.jar /app/app.jar
 # 调整时区
 # RUN rm -f /etc/localtime && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 
-# EXPOSE      80
+EXPOSE      80
 
-ENTRYPOINT ["java", "-Xmx256m", "-jar", "app/app.jar"]
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90.0", "-Xmx256m", "-jar", "app/app.jar", "--server.port=${PORT}", "--spring.profiles.active=product"]
+# ENTRYPOINT ["java", "-Xmx256m", "-jar", "app/app.jar"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90.0", "-Xmx256m", "-jar", "app/app.jar", "--server.port=80"]
