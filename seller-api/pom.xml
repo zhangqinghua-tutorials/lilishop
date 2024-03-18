@@ -21,6 +21,7 @@
     </dependencies>
 
     <build>
+        <finalName>seller</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
