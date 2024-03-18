@@ -11,4 +11,4 @@ RUN rm -f /etc/localtime && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localt
 
 EXPOSE      80
 
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90.0", "-jar", "app/app.jar", "--server.port=80"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90.0", "-Xmx256m", "-jar", "app/app.jar", "--server.port=80"]
