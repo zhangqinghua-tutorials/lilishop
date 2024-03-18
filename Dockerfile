@@ -12,3 +12,4 @@ ADD ${MODULE}/target/${MODULE}.jar /app/app.jar
 # EXPOSE      80
 
 ENTRYPOINT ["java", "-Xmx256m", "-jar", "app/app.jar"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90.0", "-Xmx256m", "-jar", "app/app.jar", "--server.port=${PORT}", "--spring.profiles.active=product"]
