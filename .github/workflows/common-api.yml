@@ -1,5 +1,5 @@
 # 编译打包、生成Docker镜像并推送到DockerHub上
-name: manager-api
+name: common-api
 
 # 触发条件
 on: workflow_dispatch
