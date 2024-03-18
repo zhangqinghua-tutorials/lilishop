@@ -1,4 +1,4 @@
-FROM java:openjdk-8u111-jre
+FROM adoptopenjdk/openjdk8
 
 # 2.接收从外边传来的参数
 ARG         MODULE
