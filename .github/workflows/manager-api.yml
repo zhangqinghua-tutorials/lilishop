@@ -53,3 +53,16 @@ jobs:
           push: true
           tags: zhangqinghua/lilishop-manager:latest
           context: ./
+      # 7. 执行
+      # 启动服务
+      - name: Start Application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCT_SERVER_HOST }}
+          port: 22
+          username: ${{ secrets.PRODUCT_SERVER_USERNAME }}
+          password: ${{ secrets.PRODUCT_SERVER_PASSWORD }}
+          script: |
+            
+            
+            
