@@ -11,4 +11,4 @@ RUN rm -f /etc/localtime && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localt
 
 EXPOSE      80
 
-ENTRYPOINT ["java", "-Xmx128m", "-jar", "app/app.jar", "--server.port=80"]
+ENTRYPOINT ["java", "-Xmx256m", "-jar", "app/app.jar", "--server.port=80"]
