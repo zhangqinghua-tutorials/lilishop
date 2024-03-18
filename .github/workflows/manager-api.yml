@@ -8,6 +8,7 @@ on: workflow_dispatch
 env:
   BRANCH: product
   MODULE:  manager-api
+  RUN_PORT: 8081
   DOCKERHUB_IMAGE: zhangqinghua/lilishop-manager
 # 步骤流程：
 jobs:
@@ -55,4 +56,15 @@ jobs:
           context: ./
           build-args: |
             MODULE=${{ env.MODULE }}
-            
+      - name: Start Application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TALKAI_CLUB_SERVER_HOST }}
+          port: 22
+          username: ${{ secrets.TALKAI_CLUB_SERVER_USERNAME }}
+          password: ${{ secrets.TALKAI_CLUB_SERVER_PASSWORD }}
+          script: |
+            docker pull ${{env.DOCKERHUB_IMAGE}}:latest
+            docker stop ${{ env.MODULE }}
+            docker rm ${{ env.MODULE }}
+            docker run -dit --name ${{ env.MODULE }} -p ${{ env.RUN_PORT }}:80 --restart always ${{env.DOCKERHUB_IMAGE}}:latest
