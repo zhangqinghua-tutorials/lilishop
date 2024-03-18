@@ -6,9 +6,9 @@ on: workflow_dispatch
 
 # 全局环境变量
 env:
-  NAME: lilishop
-  BRANCH: product                                      # 仓库分支
-  DOCKERHUB_IMAGE: zhangqinghua/lilishop
+  BRANCH: product
+  MODULE:  manager-api
+  DOCKERHUB_IMAGE: zhangqinghua/lilishop-manager
 # 步骤流程：
 jobs:
   release:
@@ -49,11 +49,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v4
         with:
-          file: ./Dockerfile
           push: true
-          tags: zhangqinghua/lilishop-manager:latest
+          file: ./Dockerfile
+          tags: ${{env.DOCKERHUB_IMAGE}}:latest
           context: ./
           build-args: |
-            MODULE=manager-api
-            APP_NAME=manager-api-4.3
+            MODULE=${{ env.MODULE }}
             
