@@ -11,4 +11,4 @@ ADD ${MODULE}/target/${MODULE}.jar /app/app.jar
 
 # EXPOSE      80
 
-ENTRYPOINT ["java", "-jar", "app/app.jar"]
+ENTRYPOINT ["java", "-Xmx256m", "-jar", "app/app.jar"]
